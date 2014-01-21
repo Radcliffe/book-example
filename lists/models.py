@@ -10,6 +10,11 @@ class List(models.Model):
         return reverse('view_list', args=[self.id])
 
 
+    @property
+    def name(self):
+        return self.item_set.all()[0].text
+
+
 
 class Item(models.Model):
     text = models.TextField()
