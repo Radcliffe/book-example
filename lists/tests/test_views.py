@@ -86,7 +86,7 @@ class NewListTest(TestCase):
         request.POST['text'] = 'new list item'
         mock_list = mock_List_create.return_value
         def check_owner_assigned_before_save():
-            self.assertEqual(mock_List_create.owner, request.user)
+            self.assertEqual(mock_list.owner, request.user)
         mock_list.save.side_effect = check_owner_assigned_before_save
 
         new_list(request)
