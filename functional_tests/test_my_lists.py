@@ -56,4 +56,3 @@ class MyListsTest(FunctionalTest):
             []
         )
 
-
