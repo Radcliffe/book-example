@@ -54,7 +54,7 @@
 <script src="/static/accounts.js"></script>
 <script src="/static/list.js"></script>
 <script>
-    /*global $, Superlists */
+    /*global $, Superlists, navigator */
     $(document).ready(function () {
         var user = "{{ user.email }}" || null;
         var token = "{{ csrf_token }}";
