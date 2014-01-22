@@ -1,3 +1,4 @@
+from unittest.mock import Mock, patch
 from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.html import escape
@@ -76,6 +77,19 @@ class NewListTest(TestCase):
         list_ = List.objects.all()[0]
         self.assertEqual(list_.owner, request.user)
 
+
+    @patch('lists.views.ItemForm.save', Mock())
+    @patch('lists.views.List.objects.create')
+    def test_list_owner_is_saved_mocky(self, mock_List_create):
+        request = HttpRequest()
+        request.user = Mock()
+        request.POST['text'] = 'new list item'
+        mock_list = mock_List_create.return_value
+        def check_owner_assigned_before_save():
+            self.assertEqual(mock_List_create.owner, request.user)
+        mock_list.save.side_effect = check_owner_assigned_before_save
+
+        new_list(request)
 
 
 class ListViewTest(TestCase):
